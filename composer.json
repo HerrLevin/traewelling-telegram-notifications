@@ -1,0 +1,14 @@
+{
+  "name": "herrlevin/traewellingtelegramnotifications",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "herrlevin_",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+  }
+}
