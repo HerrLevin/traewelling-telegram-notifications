@@ -2,8 +2,12 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/vendor/autoload.php';
+
+use App\TrwlAuth;
+
 $root = $_SERVER['DOCUMENT_ROOT'];
-$envFilepath = "$root/../.env";
+$envFilepath = "$root/.env";
 if (is_file($envFilepath)) {
     $file = new \SplFileObject($envFilepath);
 
@@ -12,25 +16,18 @@ if (is_file($envFilepath)) {
     }
 }
 
-// generate get request url
-$state = "123";
+$trwl = new TrwlAuth(
+    (int) getenv('CLIENT_ID'),
+    getenv('CLIENT_SECRET'),
+    getenv('REDIRECT_URI'),
+    getenv('TRWL_WEBHOOK_URL'),
+    getenv('REQUEST_URL')
+);
 
-$query = http_build_query([
-    'client_id' => getenv('CLIENT_ID'),
-    'redirect_uri' => getenv('REDIRECT_URI'),
-    'response_type' => 'code',
-    'state' => $state,
-    'trwl_webhook_events' => 'notification',
-    'trwl_webhook_url' => getenv('TRWL_WEBHOOK_URL'),
-]);
-
-echo getenv('REQUEST_URL') . "/oauth/authorize?" . $query . "\n";
-
-// fetch oauth token
-// generate curl post request
+echo sprintf('👉<a href="%s">Login</a>👈', $trwl->getAuthUrl());
 
 if (isset($_GET['code'])) {
-    activateWebhook();
+    echo $trwl->activateWebhook($_GET['code']) ? 'Webhook activated' : 'Error: Webhook not activated';
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

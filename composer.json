@@ -1,16 +1,19 @@
 {
-  "name": "herrlevin/traewellingtelegramnotifications",
-  "description": "description",
-  "minimum-stability": "stable",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "herrlevin_",
-      "email": "email@example.com"
+    "name": "herrlevin/traewelling-telegram-notifications",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Levin",
+            "email": "github@17d.me"
+        }
+    ],
+    "require": {
+        "ext-curl": "*"
     }
-  ],
-  "require": {
-    "ext-curl": "*",
-    "ext-json": "*"
-  }
 }
