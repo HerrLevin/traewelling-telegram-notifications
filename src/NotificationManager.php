@@ -14,11 +14,11 @@ class NotificationManager
     public function handle(): void
     {
         $data = $this->notificationData['notification'];
-        $title = $data['leadFormatted'];
-        $message = $data['noticeFormatted'];
+        $ne = NotificationEnum::tryFrom($data['type']) ?? NotificationEnum::DEFAULT;
         $data = [
             'chat_id' => getenv('TELEGRAM_CHAT_ID'),
-            'text' => $title . "\n" . $message,
+            'text' => $ne->getEmoji() . ' ' . $this->getTitle($data). "\n" . $ne->getNotificationMessage($data),
+            'parse_mode' => 'html',
         ];
 
         (new EasyRequest($this->telegramUrl(), $data))->request();
@@ -28,5 +28,10 @@ class NotificationManager
     private function telegramUrl(): string
     {
         return sprintf(getenv('TELEGRAM_API_URL'), getenv('TELEGRAM_BOT_TOKEN'), "sendMessage");
+    }
+
+    private function getTitle(array $data): string
+    {
+        return sprintf('<a href="%s">%s</a>',$data['link'],$data['leadFormatted']);
     }
 }
