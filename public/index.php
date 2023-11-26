@@ -16,7 +16,7 @@ if (is_file($envFilepath)) {
         if (str_starts_with($line, '#') || strlen(trim($line)) === 0) {
             continue;
         }
-        putenv(trim($file->fgets()));
+        putenv(trim($line));
     }
 }
 
