@@ -31,7 +31,8 @@ $trwl = new TrwlAuth(
 echo sprintf('👉<a href="%s">Login</a>👈', $trwl->getAuthUrl());
 
 if (isset($_GET['code'])) {
-    echo $trwl->activateWebhook($_GET['code']) ? 'Webhook activated' : 'Error: Webhook not activated';
+    echo '<br>';
+    echo $trwl->activateWebhook($_GET['code']) ? 'Webhook activated' : 'Error: Webhook not activated. See error.log';
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

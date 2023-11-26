@@ -60,6 +60,10 @@ class TrwlAuth
             return true;
         }
 
+        $errorMessage = $response['error'] ?? 'Unknown error';
+        $details = $response['error_description'] ?? 'none';
+        error_log(sprintf("Error activating webhook: %s. Additional info: %s", $errorMessage, $details));
+
         return false;
     }
 }
