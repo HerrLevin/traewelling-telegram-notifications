@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\NotificationManager;
 use App\TrwlAuth;
 
-$root = $_SERVER['DOCUMENT_ROOT'];
-$envFilepath = "$root/.env";
+$envFilepath = __DIR__ . "/../.env";
 if (is_file($envFilepath)) {
     $file = new \SplFileObject($envFilepath);
 
