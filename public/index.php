@@ -12,6 +12,10 @@ if (is_file($envFilepath)) {
     $file = new \SplFileObject($envFilepath);
 
     while (false === $file->eof()) {
+        $line = $file->fgets();
+        if (str_starts_with($line, '#') || strlen(trim($line)) === 0) {
+            continue;
+        }
         putenv(trim($file->fgets()));
     }
 }
