@@ -14,9 +14,9 @@ enum NotificationEnum: string
     case EVENT_SUGGESTION_PROCESSED = 'EventSuggestionProcessed';
     case DEFAULT = 'default';
 
-    public function getNotificationMessage(array $data): string
+    public function getNotificationMessage(array $notification): string
     {
-        $data = $data['data'];
+        $data = $notification['data'];
         return match ($this) {
             self::STATUS_LIKED => sprintf(
                 '%s hat deine Fahrt mit %s von %s nach %s geliked',
@@ -55,7 +55,7 @@ enum NotificationEnum: string
                     ? 'angenommen'
                     : sprintf('abgelehnt mit der Begründung: %s', $data['event']['rejectionReason'])
             ),
-            self::DEFAULT => $data['lead'],
+            self::DEFAULT => $notification['lead'],
 
         };
     }
