@@ -12,6 +12,7 @@ enum NotificationEnum: string
     case FOLLOW_REQUEST_ISSUED = 'FollowRequestIssued';
     case FOLLOW_REQUEST_ACCEPTED = 'FollowRequestAccepted';
     case EVENT_SUGGESTION_PROCESSED = 'EventSuggestionProcessed';
+    case USER_MENTIONED = 'UserMentioned';
     case DEFAULT = 'default';
 
     public function getNotificationMessage(array $notification): string
@@ -55,6 +56,10 @@ enum NotificationEnum: string
                     ? 'angenommen'
                     : sprintf('abgelehnt mit der Begründung: %s', $data['event']['rejectionReason'])
             ),
+            self::USER_MENTIONED => sprintf(
+                '%s hat dich in einem Status erwähnt',
+                $data['creator']['username']
+            ),
             self::DEFAULT => $notification['lead'],
 
         };
@@ -69,7 +74,8 @@ enum NotificationEnum: string
             self::FOLLOW_REQUEST_ISSUED => '👤',
             self::FOLLOW_REQUEST_ACCEPTED => '👤',
             self::EVENT_SUGGESTION_PROCESSED => '📅',
-            self::DEFAULT => '❓',
+            self::USER_MENTIONED => '🗣️',
+            self::DEFAULT => 'ℹ️',
         };
     }
 }
